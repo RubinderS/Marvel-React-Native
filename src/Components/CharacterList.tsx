@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
     flex: 20,
     minWidth: 200,
     borderRadius: 8,
-    // resizeMode: 'center',
   },
   infoContainer: {
     height: 200,
