@@ -1,8 +1,9 @@
-import * as React from 'React';
-import {Text, View} from 'react-native';
+import * as React from 'react';
+import {StatusBar, Text, View} from 'react-native';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/Feather';
+import {indigo, pink} from 'material-ui-colors';
 
 export const Home = () => {
   const Tab = createMaterialBottomTabNavigator();
@@ -11,16 +12,16 @@ export const Home = () => {
     <NavigationContainer>
       <Tab.Navigator
         activeColor="#f0edf6"
-        inactiveColor="#3e2465"
+        inactiveColor="#d3d3d3"
         shifting={true}
       >
         <Tab.Screen
           name="Home"
           component={() => <Text>Home</Text>}
           options={{
-            tabBarColor: 'blue',
+            tabBarColor: indigo[700],
             tabBarIcon: ({color}) => (
-              <MaterialCommunityIcons name="home" color={color} size={26} />
+              <Icon name="list" color={color} size={24} />
             ),
           }}
         />
@@ -28,9 +29,9 @@ export const Home = () => {
           name="Settings"
           component={() => <Text>Settings</Text>}
           options={{
-            tabBarColor: 'pink',
+            tabBarColor: pink[700],
             tabBarIcon: ({color}) => (
-              <MaterialCommunityIcons name="heart" color={color} size={26} />
+              <Icon name="star" color={color} size={24} />
             ),
           }}
         />
