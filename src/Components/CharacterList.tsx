@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   thumbnail: {
     height: '100%',
     flex: 20,
-    minWidth: 200,
+    minWidth: 70,
     borderRadius: 8,
   },
   infoContainer: {
@@ -90,12 +90,10 @@ const styles = StyleSheet.create({
   },
   name: {
     fontWeight: 'bold',
-    fontSize: 25,
-    fontFamily: 'lucida grande',
+    fontSize: 18,
     marginBottom: 15,
   },
   textMain: {
-    fontFamily: 'lucida grande',
     fontSize: 15,
     paddingTop: 8,
     fontWeight: 'bold',
