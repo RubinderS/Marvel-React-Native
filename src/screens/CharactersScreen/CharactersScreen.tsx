@@ -4,6 +4,7 @@ import {
   Image,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -66,16 +67,23 @@ export const CharactersScreen = (props: Props) => {
   };
 
   return (
-    <FlatList
-      style={styles.listContainer}
-      data={characters}
-      renderItem={renderItem}
-      keyExtractor={(item, index) => `${index}_${item.id}`}
-    />
+    <>
+      <TextInput style={styles.searchBox} />
+      <FlatList
+        style={styles.listContainer}
+        data={characters}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => `${index}_${item.id}`}
+      />
+    </>
   );
 };
 
 const styles = StyleSheet.create({
+  searchBox: {
+    fontSize: 20,
+    height: 30,
+  },
   listContainer: {
     backgroundColor: 'transparent',
   },
