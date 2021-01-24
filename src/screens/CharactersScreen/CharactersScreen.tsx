@@ -20,6 +20,51 @@ interface Props {
 export const CharactersScreen = (props: Props) => {
   const {characters} = props.route.params;
 
+  const renderItem = (renderItem: {item: Character; index: number}) => {
+    const {index, item} = renderItem;
+    const {navigation} = props;
+
+    const TextRow = (props: {textMain: string; textSub: string}) => {
+      const {textMain, textSub} = props;
+
+      return (
+        <Text>
+          <Text style={styles.textMain}>{textMain} </Text>
+          <Text style={styles.textSub}>{textSub} </Text>
+        </Text>
+      );
+    };
+
+    const onPress = () => {
+      navigation.navigate('Info', {character: item});
+    };
+
+    return (
+      <TouchableOpacity
+        style={styles.itemContainer}
+        activeOpacity={0.7}
+        onPress={onPress}
+      >
+        <Image
+          style={styles.thumbnail}
+          source={{
+            uri: `${item.thumbnail.path}.${item.thumbnail.extension}`,
+          }}
+        />
+        <View style={styles.infoContainer}>
+          <Text style={styles.name}>{index + 1 + ': ' + item.name}</Text>
+          <TextRow textMain="Comics:" textSub={String(item.comics.available)} />
+          <TextRow textMain="Series:" textSub={String(item.series.available)} />
+          <TextRow
+            textMain="Stories:"
+            textSub={String(item.stories.available)}
+          />
+          <TextRow textMain="Events:" textSub={String(item.events.available)} />
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <FlatList
       style={styles.listContainer}
@@ -27,39 +72,6 @@ export const CharactersScreen = (props: Props) => {
       renderItem={renderItem}
       keyExtractor={(item, index) => `${index}_${item.id}`}
     />
-  );
-};
-
-const renderItem = (renderItem: {item: Character; index: number}) => {
-  const {index, item} = renderItem;
-
-  const TextRow = (props: {textMain: string; textSub: string}) => {
-    const {textMain, textSub} = props;
-
-    return (
-      <Text>
-        <Text style={styles.textMain}>{textMain} </Text>
-        <Text style={styles.textSub}>{textSub} </Text>
-      </Text>
-    );
-  };
-
-  return (
-    <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7}>
-      <Image
-        style={styles.thumbnail}
-        source={{
-          uri: `${item.thumbnail.path}.${item.thumbnail.extension}`,
-        }}
-      />
-      <View style={styles.infoContainer}>
-        <Text style={styles.name}>{index + 1 + ': ' + item.name}</Text>
-        <TextRow textMain="Comics:" textSub={String(item.comics.available)} />
-        <TextRow textMain="Series:" textSub={String(item.series.available)} />
-        <TextRow textMain="Stories:" textSub={String(item.stories.available)} />
-        <TextRow textMain="Events:" textSub={String(item.events.available)} />
-      </View>
-    </TouchableOpacity>
   );
 };
 
