@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../../types';
@@ -13,7 +13,14 @@ export const CharacterInfoScreen = (props: Props) => {
   const {character} = props.route.params;
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={{
+        uri: `${character.thumbnail.path}.${character.thumbnail.extension}`,
+      }}
+      style={styles.container}
+      imageStyle={styles.backgroundImageStyle}
+      blurRadius={20}
+    >
       <Image
         style={styles.thumbnail}
         source={{
@@ -27,7 +34,7 @@ export const CharacterInfoScreen = (props: Props) => {
             `more information about ${character.name} coming soon...`}
         </Text>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -35,6 +42,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  backgroundImageStyle: {opacity: 0.5},
   thumbnail: {
     flex: 40,
     width: '100%',
