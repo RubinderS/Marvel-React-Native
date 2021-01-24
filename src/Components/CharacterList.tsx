@@ -100,5 +100,7 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     fontWeight: 'bold',
   },
-  textSub: {},
+  textSub: {
+    //
+  },
 });
