@@ -1,48 +1,107 @@
 import * as React from 'react';
-import {indigo, pink} from 'material-ui-colors';
-import {CharacterListTab} from './CharacterListTab';
-import {FavoritesTab} from './FavoritesTab';
-import Icon from 'react-native-vector-icons/Feather';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import {useState} from 'react';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {indigo} from 'material-ui-colors';
 import {Character} from '../../types';
-import {api} from '../../api';
 
-export const CharactersScreen = () => {
-  const Tab = createMaterialBottomTabNavigator();
-  const [characters, updateCharacters] = useState<Character[]>([]);
-  api
-    .getCharacters()
-    .then((characters: Character[]) => updateCharacters(characters));
+interface Props {
+  characters: Character[];
+}
+
+export const CharactersScreen = (props: any) => {
+  const {characters} = props.route.params;
 
   return (
-    <>
-      <Tab.Navigator
-        activeColor="#f0edf6"
-        inactiveColor="#d3d3d3"
-        shifting={true}
-      >
-        <Tab.Screen
-          name="Characters"
-          children={() => <CharacterListTab characters={characters} />}
-          options={{
-            tabBarColor: indigo[700],
-            tabBarIcon: ({color}: {focused: boolean; color: string}) => (
-              <Icon name="list" color={color} size={24} />
-            ),
-          }}
-        ></Tab.Screen>
-        <Tab.Screen
-          name="Favorites"
-          children={() => <FavoritesTab />}
-          options={{
-            tabBarColor: pink[700],
-            tabBarIcon: ({color}: {focused: boolean; color: string}) => (
-              <Icon name="star" color={color} size={24} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </>
+    <FlatList
+      style={styles.listContainer}
+      data={characters}
+      renderItem={renderItem}
+      keyExtractor={(item, index) => `${index}_${item.id}`}
+    />
   );
 };
+
+const renderItem = (renderItem: {item: Character; index: number}) => {
+  const {index, item} = renderItem;
+
+  const TextRow = (props: {textMain: string; textSub: string}) => {
+    const {textMain, textSub} = props;
+
+    return (
+      <Text>
+        <Text style={styles.textMain}>{textMain} </Text>
+        <Text style={styles.textSub}>{textSub} </Text>
+      </Text>
+    );
+  };
+
+  return (
+    <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7}>
+      <Image
+        style={styles.thumbnail}
+        source={{
+          uri: `${item.thumbnail.path}.${item.thumbnail.extension}`,
+        }}
+      />
+      <View style={styles.infoContainer}>
+        <Text style={styles.name}>{index + 1 + ': ' + item.name}</Text>
+        <TextRow textMain="Comics:" textSub={String(item.comics.available)} />
+        <TextRow textMain="Series:" textSub={String(item.series.available)} />
+        <TextRow textMain="Stories:" textSub={String(item.stories.available)} />
+        <TextRow textMain="Events:" textSub={String(item.events.available)} />
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({
+  listContainer: {
+    backgroundColor: 'transparent',
+  },
+  itemContainer: {
+    padding: 5,
+    margin: 3,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderRadius: 5,
+    borderBottomWidth: 4,
+    borderColor: indigo[700],
+    shadowColor: '#000000',
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    shadowOffset: {
+      height: 2,
+      width: 2,
+    },
+  },
+  thumbnail: {
+    height: '100%',
+    flex: 20,
+    minWidth: 70,
+    borderRadius: 8,
+  },
+  infoContainer: {
+    height: 200,
+    flex: 80,
+    padding: 8,
+  },
+  name: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 15,
+  },
+  textMain: {
+    fontSize: 15,
+    paddingTop: 8,
+    fontWeight: 'bold',
+  },
+  textSub: {
+    //
+  },
+});

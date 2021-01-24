@@ -6,6 +6,7 @@ import {Character} from '../../types';
 import {api} from '../../api';
 import {CharactersScreen} from '../CharactersScreen';
 import {CharacterInfoScreen} from '../CharacterInfoScreen';
+import {indigo, teal} from 'material-ui-colors';
 
 interface Props {
   characters: Character[];
@@ -21,9 +22,20 @@ export const Home = (props: Props) => {
         <Screen
           name="Characters"
           component={CharactersScreen}
+          options={{
+            headerTintColor: 'white',
+            headerStyle: {backgroundColor: indigo[700]},
+          }}
           initialParams={{characters: characters}}
         />
-        <Screen name="Info" component={CharacterInfoScreen} />
+        <Screen
+          name="Info"
+          component={CharacterInfoScreen}
+          options={{
+            headerTintColor: 'white',
+            headerStyle: {backgroundColor: teal[700]},
+          }}
+        />
       </Navigator>
     </NavigationContainer>
   );
