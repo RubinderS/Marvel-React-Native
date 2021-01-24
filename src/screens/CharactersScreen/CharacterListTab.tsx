@@ -8,7 +8,7 @@ interface Props {
   characters: Character[];
 }
 
-export const CharactersPage = (props: Props) => {
+export const CharacterListTab = (props: Props) => {
   const {characters} = props;
   return <CharacterList characters={characters} />;
 };

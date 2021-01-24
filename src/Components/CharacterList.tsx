@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import {Character} from '../types';
+import {indigo} from 'material-ui-colors';
 
 interface Props {
   characters: Character[];
@@ -69,6 +70,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'white',
     borderRadius: 5,
+    borderBottomWidth: 7,
+    borderColor: indigo[700],
     shadowColor: '#000000',
     shadowOpacity: 0.2,
     shadowRadius: 5,
