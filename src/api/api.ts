@@ -21,7 +21,7 @@ class API {
       );
       const responseJSON = await response.json();
 
-      this.characters = responseJSON.data.results;
+      this.characters = responseJSON.data.results as Character[];
 
       return this.characters;
     } catch (e) {
