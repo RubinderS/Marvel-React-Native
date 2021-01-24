@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textLoading: {
-    // textAlign: 'center',
+    textAlign: 'center',
     fontSize: 20,
     color: '#999',
   },
