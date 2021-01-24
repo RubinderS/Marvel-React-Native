@@ -30,8 +30,7 @@ export const Home = (props: Props) => {
           name="Info"
           component={CharacterInfoScreen}
           options={{
-            headerTintColor: 'white',
-            headerStyle: {backgroundColor: pink[700]},
+            headerTintColor: indigo[700],
           }}
           initialParams={{character: characters[1]}}
         />
