@@ -22,7 +22,10 @@ export const CharacterInfoScreen = (props: Props) => {
       />
       <View style={styles.infoContainer}>
         <Text style={styles.name}>{character.name}</Text>
-        <Text style={styles.desc}>{character.description}</Text>
+        <Text style={styles.desc}>
+          {character.description ||
+            `more information about ${character.name} coming soon...`}
+        </Text>
       </View>
     </View>
   );
