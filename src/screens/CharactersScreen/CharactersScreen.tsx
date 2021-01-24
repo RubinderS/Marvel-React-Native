@@ -8,13 +8,16 @@ import {
   View,
 } from 'react-native';
 import {indigo} from 'material-ui-colors';
-import {Character} from '../../types';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RouteProp} from '@react-navigation/native';
+import {Character, RootStackParamList} from '../../types';
 
 interface Props {
-  characters: Character[];
+  navigation: StackNavigationProp<RootStackParamList, 'Characters'>;
+  route: RouteProp<RootStackParamList, 'Characters'>;
 }
 
-export const CharactersScreen = (props: any) => {
+export const CharactersScreen = (props: Props) => {
   const {characters} = props.route.params;
 
   return (
