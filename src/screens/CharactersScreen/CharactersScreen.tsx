@@ -1,7 +1,9 @@
 import * as React from 'react';
 import {
+  BackHandler,
   FlatList,
   Image,
+  Keyboard,
   StyleSheet,
   Text,
   TextInput,
@@ -12,7 +14,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {Character, RootStackParamList} from '../../types';
 import Icon from 'react-native-vector-icons/Feather';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 interface Props {
   navigation: StackNavigationProp<RootStackParamList, 'Characters'>;
@@ -21,13 +23,12 @@ interface Props {
 
 export const CharactersScreen = (props: Props) => {
   const {characters} = props.route.params;
-
   const [charactersList, setCharactersList] = useState<Character[]>([
     ...characters,
   ]);
   const [searchValue, setSearchValue] = useState<string>('');
 
-  const onSearchUpdated = (text: string) => {
+  const updateSearch = (text: string) => {
     setSearchValue(text);
     setCharactersList(
       characters.filter((character) =>
@@ -35,6 +36,23 @@ export const CharactersScreen = (props: Props) => {
       ),
     );
   };
+
+  useEffect(() => {
+    const handleBackButton = () => {
+      if (searchValue) {
+        updateSearch('');
+        Keyboard.dismiss();
+        return true;
+      }
+
+      return false;
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+    };
+  }, []);
 
   const renderItem = (renderItem: {item: Character; index: number}) => {
     const {item} = renderItem;
@@ -93,7 +111,7 @@ export const CharactersScreen = (props: Props) => {
           placeholder="Search"
           placeholderTextColor="rgba(211, 211, 211, 0.6)"
           value={searchValue}
-          onChangeText={onSearchUpdated}
+          onChangeText={updateSearch}
         />
       </View>
       <FlatList
