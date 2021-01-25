@@ -11,6 +11,7 @@ import {
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {Character, RootStackParamList} from '../../types';
+import Icon from 'react-native-vector-icons/Feather';
 
 interface Props {
   navigation: StackNavigationProp<RootStackParamList, 'Characters'>;
@@ -70,7 +71,14 @@ export const CharactersScreen = (props: Props) => {
 
   return (
     <>
-      <TextInput style={styles.searchBox} />
+      <View style={styles.searchBoxContainer}>
+        <Icon name="search" style={styles.searchIcon} />
+        <TextInput
+          style={styles.searchBox}
+          placeholder="Search"
+          placeholderTextColor="rgba(211, 211, 211, 0.6)"
+        />
+      </View>
       <FlatList
         style={styles.listContainer}
         data={characters}
@@ -82,9 +90,24 @@ export const CharactersScreen = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
+  searchBoxContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#ed1d24',
+    borderRadius: 15,
+    margin: 10,
+    height: 32,
+  },
+  searchIcon: {
+    color: '#d3d3d3',
+    fontSize: 13,
+    padding: 10,
+    flex: 5,
+  },
   searchBox: {
-    fontSize: 20,
-    height: 30,
+    color: '#d3d3d3',
+    fontSize: 15,
+    height: '100%',
+    flex: 95,
   },
   listContainer: {
     backgroundColor: 'transparent',
