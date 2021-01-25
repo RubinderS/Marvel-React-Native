@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {indigo} from 'material-ui-colors';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {Character, RootStackParamList} from '../../types';
@@ -29,10 +28,12 @@ export const CharactersScreen = (props: Props) => {
       const {textMain, textSub} = props;
 
       return (
-        <Text>
-          <Text style={styles.textMain}>{textMain} </Text>
-          <Text style={styles.textSub}>{textSub} </Text>
-        </Text>
+        <View style={styles.statsRowContainer}>
+          <View style={styles.statTitleContainer}>
+            <Text style={styles.statTitle}>{textMain} </Text>
+          </View>
+          <Text style={styles.statInfo}>{('0' + textSub).slice(-2)} </Text>
+        </View>
       );
     };
 
@@ -43,7 +44,7 @@ export const CharactersScreen = (props: Props) => {
     return (
       <TouchableOpacity
         style={styles.itemContainer}
-        activeOpacity={0.7}
+        activeOpacity={0.8}
         onPress={onPress}
       >
         <Image
@@ -54,6 +55,7 @@ export const CharactersScreen = (props: Props) => {
         />
         <View style={styles.infoContainer}>
           <Text style={styles.name}>{index + 1 + ': ' + item.name}</Text>
+          <View style={styles.divider} />
           <TextRow textMain="Comics:" textSub={String(item.comics.available)} />
           <TextRow textMain="Series:" textSub={String(item.series.available)} />
           <TextRow
@@ -88,43 +90,49 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   itemContainer: {
-    padding: 5,
-    margin: 3,
+    margin: 5,
+    height: 150,
     flexDirection: 'row',
     backgroundColor: 'white',
-    borderRadius: 5,
-    borderBottomWidth: 4,
-    borderColor: indigo[700],
-    shadowColor: '#000000',
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    shadowOffset: {
-      height: 2,
-      width: 2,
-    },
+    borderRadius: 10,
+    elevation: 3,
   },
   thumbnail: {
     height: '100%',
     flex: 20,
     minWidth: 70,
-    borderRadius: 8,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
   },
   infoContainer: {
-    height: 200,
+    height: '100%',
     flex: 80,
     padding: 8,
+  },
+  divider: {
+    backgroundColor: '#ed1d24',
+    height: 1,
+    width: '100%',
+    marginBottom: 8,
   },
   name: {
     fontWeight: 'bold',
     fontSize: 18,
-    marginBottom: 15,
+    marginBottom: 8,
   },
-  textMain: {
-    fontSize: 15,
-    paddingTop: 8,
+  statsRowContainer: {
+    flexDirection: 'row',
+    height: 20,
+  },
+  statTitleContainer: {
+    width: 65,
+  },
+  statTitle: {
+    fontSize: 13,
     fontWeight: 'bold',
   },
-  textSub: {
+  statInfo: {
+    fontSize: 13,
     //
   },
 });
