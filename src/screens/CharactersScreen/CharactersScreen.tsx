@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     color: '#d3d3d3',
     fontSize: 15,
     height: '100%',
+    paddingRight: 12,
     flex: 95,
   },
   listContainer: {
