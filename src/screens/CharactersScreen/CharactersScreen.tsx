@@ -12,6 +12,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {Character, RootStackParamList} from '../../types';
 import Icon from 'react-native-vector-icons/Feather';
+import {useState} from 'react';
 
 interface Props {
   navigation: StackNavigationProp<RootStackParamList, 'Characters'>;
@@ -20,6 +21,20 @@ interface Props {
 
 export const CharactersScreen = (props: Props) => {
   const {characters} = props.route.params;
+
+  const [charactersList, setCharactersList] = useState<Character[]>([
+    ...characters,
+  ]);
+  const [searchValue, setSearchValue] = useState<string>('');
+
+  const onSearchUpdated = (text: string) => {
+    setSearchValue(text);
+    setCharactersList(
+      characters.filter((character) =>
+        character.name.toLowerCase().includes(text.toLowerCase()),
+      ),
+    );
+  };
 
   const renderItem = (renderItem: {item: Character; index: number}) => {
     const {index, item} = renderItem;
@@ -55,7 +70,7 @@ export const CharactersScreen = (props: Props) => {
           }}
         />
         <View style={styles.infoContainer}>
-          <Text style={styles.name}>{index + 1 + ': ' + item.name}</Text>
+          <Text style={styles.name}>{item.name}</Text>
           <View style={styles.divider} />
           <TextRow textMain="Comics:" textSub={String(item.comics.available)} />
           <TextRow textMain="Series:" textSub={String(item.series.available)} />
@@ -77,11 +92,13 @@ export const CharactersScreen = (props: Props) => {
           style={styles.searchBox}
           placeholder="Search"
           placeholderTextColor="rgba(211, 211, 211, 0.6)"
+          value={searchValue}
+          onChangeText={onSearchUpdated}
         />
       </View>
       <FlatList
         style={styles.listContainer}
-        data={characters}
+        data={charactersList}
         renderItem={renderItem}
         keyExtractor={(item, index) => `${index}_${item.id}`}
       />
