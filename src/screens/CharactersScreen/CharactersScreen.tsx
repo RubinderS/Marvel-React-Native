@@ -133,6 +133,5 @@ const styles = StyleSheet.create({
   },
   statInfo: {
     fontSize: 13,
-    //
   },
 });
