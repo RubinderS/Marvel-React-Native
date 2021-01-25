@@ -2,14 +2,12 @@ import * as React from 'react';
 import {
   FlatList,
   Image,
-  ImageBackground,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {indigo} from 'material-ui-colors';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {Character, RootStackParamList} from '../../types';
