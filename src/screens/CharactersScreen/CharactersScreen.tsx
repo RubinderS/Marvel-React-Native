@@ -14,7 +14,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {Character, RootStackParamList} from '../../types';
 import Icon from 'react-native-vector-icons/Feather';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 
 interface Props {
   navigation: StackNavigationProp<RootStackParamList, 'Characters'>;
@@ -22,7 +22,8 @@ interface Props {
 }
 
 export const CharactersScreen = (props: Props) => {
-  const {characters} = props.route.params;
+  const {navigation, route} = props;
+  const {characters} = route.params;
   const [charactersList, setCharactersList] = useState<Character[]>([
     ...characters,
   ]);
@@ -37,22 +38,25 @@ export const CharactersScreen = (props: Props) => {
     );
   };
 
-  useEffect(() => {
-    const handleBackButton = () => {
-      if (searchValue) {
-        updateSearch('');
-        Keyboard.dismiss();
-        return true;
-      }
+  const handleBackButton = () => {
+    if (searchValue) {
+      updateSearch('');
+      Keyboard.dismiss();
+      return true;
+    }
 
-      return false;
-    };
+    return false;
+  };
 
+  navigation.addListener('blur', () => {
+    console.log('blur');
+    BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+  });
+
+  navigation.addListener('focus', () => {
+    console.log('focus');
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
-    };
-  }, []);
+  });
 
   const renderItem = (renderItem: {item: Character; index: number}) => {
     const {item} = renderItem;
