@@ -49,12 +49,10 @@ export const CharactersScreen = (props: Props) => {
   };
 
   navigation.addListener('blur', () => {
-    console.log('blur');
     BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
   });
 
   navigation.addListener('focus', () => {
-    console.log('focus');
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
   });
 
@@ -108,15 +106,17 @@ export const CharactersScreen = (props: Props) => {
 
   return (
     <>
-      <View style={styles.searchBoxContainer}>
-        <Icon name="search" style={styles.searchIcon} />
-        <TextInput
-          style={styles.searchBox}
-          placeholder="Search"
-          placeholderTextColor="rgba(211, 211, 211, 0.6)"
-          value={searchValue}
-          onChangeText={updateSearch}
-        />
+      <View style={styles.searchBoxBorder}>
+        <View style={styles.searchBoxContainer}>
+          <Icon name="search" style={styles.searchIcon} />
+          <TextInput
+            style={styles.searchBox}
+            placeholder="Search"
+            placeholderTextColor="rgba(211, 211, 211, 0.6)"
+            value={searchValue}
+            onChangeText={updateSearch}
+          />
+        </View>
       </View>
       <FlatList
         style={styles.listContainer}
@@ -129,9 +129,12 @@ export const CharactersScreen = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
+  searchBoxBorder: {
+    backgroundColor: '#ed1d24',
+  },
   searchBoxContainer: {
     flexDirection: 'row',
-    backgroundColor: '#ed1d24',
+    backgroundColor: '#f2494e',
     borderRadius: 15,
     margin: 10,
     height: 32,

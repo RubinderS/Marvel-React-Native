@@ -21,10 +21,10 @@ export const Home = (props: Props) => {
           name="Characters"
           component={CharactersScreen}
           options={{
-            headerTintColor: '#ed1d24',
+            headerTintColor: 'white',
             headerTitleAlign: 'center',
             headerTitle: 'Marvel',
-            headerStyle: {backgroundColor: 'white'},
+            headerStyle: {backgroundColor: '#ed1d24', elevation: 0},
           }}
           initialParams={{characters: characters}}
         />
