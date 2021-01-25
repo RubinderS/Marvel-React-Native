@@ -37,7 +37,7 @@ export const CharactersScreen = (props: Props) => {
   };
 
   const renderItem = (renderItem: {item: Character; index: number}) => {
-    const {index, item} = renderItem;
+    const {item} = renderItem;
     const {navigation} = props;
 
     const TextRow = (props: {textMain: string; textSub: string}) => {
