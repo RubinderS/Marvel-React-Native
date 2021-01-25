@@ -119,7 +119,6 @@ export const CharactersScreen = (props: Props) => {
         </View>
       </View>
       <FlatList
-        style={styles.listContainer}
         data={charactersList}
         renderItem={renderItem}
         keyExtractor={(item, index) => `${index}_${item.id}`}
@@ -151,9 +150,6 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingRight: 12,
     flex: 95,
-  },
-  listContainer: {
-    backgroundColor: 'transparent',
   },
   itemContainer: {
     margin: 5,
