@@ -1,7 +1,9 @@
 import * as React from 'react';
 import {
+  BackHandler,
   FlatList,
   Image,
+  Keyboard,
   StyleSheet,
   Text,
   TextInput,
@@ -11,6 +13,8 @@ import {
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {Character, RootStackParamList} from '../../types';
+import Icon from 'react-native-vector-icons/Feather';
+import {useEffect, useState} from 'react';
 
 interface Props {
   navigation: StackNavigationProp<RootStackParamList, 'Characters'>;
@@ -19,9 +23,39 @@ interface Props {
 
 export const CharactersScreen = (props: Props) => {
   const {characters} = props.route.params;
+  const [charactersList, setCharactersList] = useState<Character[]>([
+    ...characters,
+  ]);
+  const [searchValue, setSearchValue] = useState<string>('');
+
+  const updateSearch = (text: string) => {
+    setSearchValue(text);
+    setCharactersList(
+      characters.filter((character) =>
+        character.name.toLowerCase().includes(text.toLowerCase()),
+      ),
+    );
+  };
+
+  useEffect(() => {
+    const handleBackButton = () => {
+      if (searchValue) {
+        updateSearch('');
+        Keyboard.dismiss();
+        return true;
+      }
+
+      return false;
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+    };
+  }, []);
 
   const renderItem = (renderItem: {item: Character; index: number}) => {
-    const {index, item} = renderItem;
+    const {item} = renderItem;
     const {navigation} = props;
 
     const TextRow = (props: {textMain: string; textSub: string}) => {
@@ -54,7 +88,7 @@ export const CharactersScreen = (props: Props) => {
           }}
         />
         <View style={styles.infoContainer}>
-          <Text style={styles.name}>{index + 1 + ': ' + item.name}</Text>
+          <Text style={styles.name}>{item.name}</Text>
           <View style={styles.divider} />
           <TextRow textMain="Comics:" textSub={String(item.comics.available)} />
           <TextRow textMain="Series:" textSub={String(item.series.available)} />
@@ -70,10 +104,19 @@ export const CharactersScreen = (props: Props) => {
 
   return (
     <>
-      <TextInput style={styles.searchBox} />
+      <View style={styles.searchBoxContainer}>
+        <Icon name="search" style={styles.searchIcon} />
+        <TextInput
+          style={styles.searchBox}
+          placeholder="Search"
+          placeholderTextColor="rgba(211, 211, 211, 0.6)"
+          value={searchValue}
+          onChangeText={updateSearch}
+        />
+      </View>
       <FlatList
         style={styles.listContainer}
-        data={characters}
+        data={charactersList}
         renderItem={renderItem}
         keyExtractor={(item, index) => `${index}_${item.id}`}
       />
@@ -82,9 +125,25 @@ export const CharactersScreen = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
+  searchBoxContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#ed1d24',
+    borderRadius: 15,
+    margin: 10,
+    height: 32,
+  },
+  searchIcon: {
+    color: '#d3d3d3',
+    fontSize: 13,
+    padding: 10,
+    flex: 5,
+  },
   searchBox: {
-    fontSize: 20,
-    height: 30,
+    color: '#d3d3d3',
+    fontSize: 15,
+    height: '100%',
+    paddingRight: 12,
+    flex: 95,
   },
   listContainer: {
     backgroundColor: 'transparent',
