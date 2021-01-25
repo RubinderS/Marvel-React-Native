@@ -18,11 +18,11 @@ export const Home = (props: Props) => {
     <NavigationContainer>
       <Navigator>
         <Screen
-          name="Characters"
+          name="Marvel"
           component={CharactersScreen}
           options={{
             headerTintColor: 'white',
-            headerStyle: {backgroundColor: indigo[700]},
+            headerStyle: {backgroundColor: '#ed1d24'},
           }}
           initialParams={{characters: characters}}
         />
