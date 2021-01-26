@@ -1,20 +1,23 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {Home} from './src/screens';
 import {Character} from './src/types';
 import {api} from './src/api';
-import {LoadingScreen} from './src/screens/LoadingScreen/LoadingScreen';
+import {SplashScreen} from './src/screens/SplashScreen';
 
 export default function App() {
   const [characters, setCharacters] = useState<Character[]>([]);
-  api
-    .getCharacters()
-    .then((characters: Character[]) => setCharacters(characters));
+
+  useEffect(() => {
+    api
+      .getCharacters()
+      .then((characters: Character[]) => setCharacters(characters));
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       {characters.length === 0 ? (
-        <LoadingScreen />
+        <SplashScreen />
       ) : (
         <Home characters={characters} />
       )}
