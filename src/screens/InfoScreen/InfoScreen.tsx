@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     height: 1,
     width: '100%',
     marginBottom: 8,
+    marginTop: 5,
   },
   statsContainer: {
     //
