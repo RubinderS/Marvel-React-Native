@@ -17,8 +17,8 @@ import Icon from 'react-native-vector-icons/Feather';
 import {useState} from 'react';
 
 interface Props {
-  navigation: StackNavigationProp<RootStackParamList, 'Characters'>;
-  route: RouteProp<RootStackParamList, 'Characters'>;
+  navigation: StackNavigationProp<RootStackParamList, 'Search'>;
+  route: RouteProp<RootStackParamList, 'Search'>;
 }
 
 export const CharactersScreen = (props: Props) => {
@@ -60,15 +60,15 @@ export const CharactersScreen = (props: Props) => {
     const {item} = renderItem;
     const {navigation} = props;
 
-    const TextRow = (props: {textMain: string; textSub: string}) => {
-      const {textMain, textSub} = props;
+    const StatRow = (props: {title: string; text: string}) => {
+      const {title: textMain, text: textSub} = props;
 
       return (
         <View style={styles.statsRowContainer}>
           <View style={styles.statTitleContainer}>
             <Text style={styles.statTitle}>{textMain} </Text>
           </View>
-          <Text style={styles.statInfo}>{('0' + textSub).slice(-2)} </Text>
+          <Text style={styles.statText}>{('0' + textSub).slice(-2)} </Text>
         </View>
       );
     };
@@ -92,13 +92,10 @@ export const CharactersScreen = (props: Props) => {
         <View style={styles.infoContainer}>
           <Text style={styles.name}>{item.name}</Text>
           <View style={styles.divider} />
-          <TextRow textMain="Comics:" textSub={String(item.comics.available)} />
-          <TextRow textMain="Series:" textSub={String(item.series.available)} />
-          <TextRow
-            textMain="Stories:"
-            textSub={String(item.stories.available)}
-          />
-          <TextRow textMain="Events:" textSub={String(item.events.available)} />
+          <StatRow title="Comics:" text={String(item.comics.available)} />
+          <StatRow title="Series:" text={String(item.series.available)} />
+          <StatRow title="Stories:" text={String(item.stories.available)} />
+          <StatRow title="Events:" text={String(item.events.available)} />
         </View>
       </TouchableOpacity>
     );
@@ -119,7 +116,6 @@ export const CharactersScreen = (props: Props) => {
         </View>
       </View>
       <FlatList
-        style={styles.listContainer}
         data={charactersList}
         renderItem={renderItem}
         keyExtractor={(item, index) => `${index}_${item.id}`}
@@ -152,9 +148,6 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     flex: 95,
   },
-  listContainer: {
-    backgroundColor: 'transparent',
-  },
   itemContainer: {
     margin: 5,
     height: 150,
@@ -183,7 +176,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 15,
     marginBottom: 8,
   },
   statsRowContainer: {
@@ -197,7 +190,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: 'bold',
   },
-  statInfo: {
+  statText: {
     fontSize: 13,
   },
 });
