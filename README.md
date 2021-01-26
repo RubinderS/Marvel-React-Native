@@ -31,8 +31,9 @@ npm start
 ```
 
 ## Screenshots
-
-<img src="./assets/screenshots/splash.jpg" alt="Splash" height="500" style="margin:10px" />
-<img src="./assets/screenshots/search.jpg" alt="Search" height="500" style="margin:10px"  />
-<img src="./assets/screenshots/keyboard.jpg" alt="Keyboard" height="500" style="margin:10px"  />  
-<img src="./assets/screenshots/info.jpg" alt="info" height="500" style="margin:10px"  />
+<p float="left">
+  <img src="./assets/screenshots/splash.jpg" alt="Splash" height="500" style="margin:10px" />
+  <img src="./assets/screenshots/search.jpg" alt="Search" height="500" style="margin:10px"  />
+  <img src="./assets/screenshots/keyboard.jpg" alt="Keyboard" height="500" style="margin:10px"  />  
+  <img src="./assets/screenshots/info.jpg" alt="info" height="500" style="margin:10px"  />
+</p>
