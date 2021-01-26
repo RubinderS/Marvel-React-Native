@@ -4,7 +4,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Character, RootStackParamList} from '../../types';
 import {CharactersScreen} from '../CharactersScreen';
 import {CharacterInfoScreen} from '../CharacterInfoScreen';
-import {indigo, pink} from 'material-ui-colors';
 
 interface Props {
   characters: Character[];
@@ -32,7 +31,9 @@ export const Home = (props: Props) => {
           name="Info"
           component={CharacterInfoScreen}
           options={{
-            headerTintColor: indigo[700],
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
+            headerStyle: {backgroundColor: '#ed1d24', elevation: 0},
           }}
           initialParams={{character: characters[1]}}
         />
