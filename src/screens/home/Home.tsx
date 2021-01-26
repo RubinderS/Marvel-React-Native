@@ -17,7 +17,7 @@ export const Home = (props: Props) => {
     <NavigationContainer>
       <Navigator>
         <Screen
-          name="Characters"
+          name="Search"
           component={CharactersScreen}
           options={{
             headerTintColor: 'white',
