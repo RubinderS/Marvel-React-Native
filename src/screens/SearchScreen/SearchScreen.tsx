@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 15,
     marginBottom: 8,
   },
   statsRowContainer: {
