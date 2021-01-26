@@ -14,7 +14,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {Character, RootStackParamList} from '../../types';
 import Icon from 'react-native-vector-icons/Feather';
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 interface Props {
   navigation: StackNavigationProp<RootStackParamList, 'Search'>;
@@ -28,6 +28,7 @@ export const CharactersScreen = (props: Props) => {
     ...characters,
   ]);
   const [searchValue, setSearchValue] = useState<string>('');
+  const searchRef = useRef<string>();
 
   const updateSearch = (text: string) => {
     setSearchValue(text);
@@ -39,7 +40,7 @@ export const CharactersScreen = (props: Props) => {
   };
 
   const handleBackButton = () => {
-    if (searchValue) {
+    if (searchRef.current) {
       updateSearch('');
       Keyboard.dismiss();
       return true;
@@ -55,6 +56,10 @@ export const CharactersScreen = (props: Props) => {
   navigation.addListener('focus', () => {
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
   });
+
+  useEffect(() => {
+    searchRef.current = searchValue;
+  }, [searchValue]);
 
   const renderItem = (renderItem: {item: Character; index: number}) => {
     const {item} = renderItem;
