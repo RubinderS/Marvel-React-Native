@@ -1,8 +1,10 @@
 import * as React from 'react';
-import {Image, ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../../types';
+import {useEffect} from 'react';
+import {ScrollView} from 'react-native-gesture-handler';
 
 interface Props {
   navigation: StackNavigationProp<RootStackParamList, 'Info'>;
@@ -11,16 +13,45 @@ interface Props {
 
 export const CharacterInfoScreen = (props: Props) => {
   const {character} = props.route.params;
+  const {comics, stories, series, events} = character;
+  const totalEvents =
+    comics.available + stories.available + series.available + events.available;
+
+  useEffect(() => {
+    props.navigation.setOptions({title: character.name});
+  }, []);
+
+  const StatRow = (props: {title: string; eventsCount: number}) => {
+    const {title, eventsCount} = props;
+
+    return (
+      <View style={styles.statRow}>
+        <Text style={styles.statTitle}>{title}</Text>
+        <View style={styles.statBar}>
+          <View
+            style={[
+              styles.statBarProgress,
+              eventsCount
+                ? {width: `${(eventsCount * 100) / totalEvents}%`}
+                : {width: 10, backgroundColor: 'transparent'},
+            ]}
+          >
+            <Text
+              style={[
+                styles.statBarProgressNumber,
+                eventsCount === 0 && {color: 'black'},
+              ]}
+            >
+              {eventsCount}
+            </Text>
+          </View>
+        </View>
+      </View>
+    );
+  };
 
   return (
-    <ImageBackground
-      source={{
-        uri: `${character.thumbnail.path}.${character.thumbnail.extension}`,
-      }}
-      style={styles.container}
-      imageStyle={styles.backgroundImageStyle}
-      blurRadius={20}
-    >
+    <View style={styles.container}>
       <Image
         style={styles.thumbnail}
         source={{
@@ -28,13 +59,23 @@ export const CharacterInfoScreen = (props: Props) => {
         }}
       />
       <View style={styles.infoContainer}>
-        <Text style={styles.name}>{character.name}</Text>
-        <Text style={styles.desc}>
-          {character.description ||
-            `more information about ${character.name} coming soon...`}
-        </Text>
+        <ScrollView>
+          <Text style={styles.heading}>Info</Text>
+          <Text style={styles.desc}>
+            {character.description ||
+              `more information about ${character.name} coming soon...`}
+          </Text>
+          <View style={styles.divider} />
+          <Text style={styles.heading}>Stats</Text>
+          <View style={styles.statsContainer}>
+            <StatRow title="Comics" eventsCount={comics.available} />
+            <StatRow title="Series" eventsCount={series.available} />
+            <StatRow title="Stories" eventsCount={stories.available} />
+            <StatRow title="Events" eventsCount={events.available} />
+          </View>
+        </ScrollView>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -44,21 +85,54 @@ const styles = StyleSheet.create({
   },
   backgroundImageStyle: {opacity: 0.5},
   thumbnail: {
-    flex: 40,
+    flex: 50,
     width: '100%',
   },
   infoContainer: {
-    flex: 60,
+    flex: 50,
     width: '100%',
     padding: 10,
   },
-  name: {
+  heading: {
     fontWeight: 'bold',
-    fontSize: 22,
-    marginBottom: 15,
+    fontSize: 20,
   },
   desc: {
     fontSize: 15,
+    textAlign: 'justify',
     paddingTop: 8,
+  },
+  divider: {
+    backgroundColor: '#ed1d24',
+    height: 1,
+    width: '100%',
+    marginBottom: 8,
+  },
+  statsContainer: {},
+  statRow: {
+    width: '100%',
+    height: 30,
+    margin: 2,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  statTitle: {
+    textAlign: 'center',
+    flex: 25,
+  },
+  statBar: {
+    flex: 75,
+    height: '100%',
+  },
+  statBarProgress: {
+    backgroundColor: '#ed1d24',
+    height: '100%',
+    alignItems: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    borderRadius: 3,
+  },
+  statBarProgressNumber: {
+    color: 'white',
   },
 });
