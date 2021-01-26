@@ -35,7 +35,6 @@ export const Home = (props: Props) => {
             headerTitleAlign: 'center',
             headerStyle: {backgroundColor: '#ed1d24', elevation: 0},
           }}
-          initialParams={{character: characters[1]}}
         />
       </Navigator>
     </NavigationContainer>
