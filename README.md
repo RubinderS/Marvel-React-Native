@@ -30,7 +30,7 @@ npm start
 
 ## Screenshots
 
-![Splash](./assets/screenshots/splash.jpg)
-![Search](./assets/screenshots/search.jpg)
-![Keyboard](./assets/screenshots/keyboard.jpg)
-![info](./assets/screenshots/info.jpg)
+<img src="./assets/screenshots/splash.jpg" alt="Splash" height="500" style="margin:10px" />
+<img src="./assets/screenshots/search.jpg" alt="Search" height="500" style="margin:10px"  />
+<img src="./assets/screenshots/keyboard.jpg" alt="Keyboard" height="500" style="margin:10px"  />  
+<img src="./assets/screenshots/info.jpg" alt="info" height="500" style="margin:10px"  />
