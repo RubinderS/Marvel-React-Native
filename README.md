@@ -1,5 +1,7 @@
 # Marvel
 
+![GitHub package.json version](https://img.shields.io/github/package-json/v/RubinderS/Marvel-React-Native?style=flat-square)
+
 ## Install
 
 - Add Api Keys
