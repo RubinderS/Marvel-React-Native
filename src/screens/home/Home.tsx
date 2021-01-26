@@ -2,8 +2,8 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Character, RootStackParamList} from '../../types';
-import {CharactersScreen} from '../CharactersScreen';
-import {CharacterInfoScreen} from '../CharacterInfoScreen';
+import {CharactersScreen} from '../SearchScreen';
+import {CharacterInfoScreen} from '../InfoScreen';
 
 interface Props {
   characters: Character[];

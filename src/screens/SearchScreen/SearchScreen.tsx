@@ -17,8 +17,8 @@ import Icon from 'react-native-vector-icons/Feather';
 import {useState} from 'react';
 
 interface Props {
-  navigation: StackNavigationProp<RootStackParamList, 'Characters'>;
-  route: RouteProp<RootStackParamList, 'Characters'>;
+  navigation: StackNavigationProp<RootStackParamList, 'Search'>;
+  route: RouteProp<RootStackParamList, 'Search'>;
 }
 
 export const CharactersScreen = (props: Props) => {
