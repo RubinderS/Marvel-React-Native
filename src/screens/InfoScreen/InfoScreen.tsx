@@ -32,7 +32,7 @@ export const CharacterInfoScreen = (props: Props) => {
             style={[
               styles.statBarProgress,
               eventsCount
-                ? {width: `${(eventsCount * 100) / totalEvents + 1}%`}
+                ? {width: `${(eventsCount * 100) / totalEvents + 3}%`}
                 : {width: 10, backgroundColor: 'transparent'},
             ]}
           >
