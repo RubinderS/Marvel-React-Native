@@ -31,6 +31,7 @@ npm start
 ```
 
 ## Screenshots
+
 <p float="left">
   <img src="./assets/screenshots/splash.jpg" alt="Splash" height="500" style="margin:10px" />
   <img src="./assets/screenshots/search.jpg" alt="Search" height="500" style="margin:10px"  />
